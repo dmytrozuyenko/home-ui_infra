@@ -6,8 +6,9 @@ pipeline {
   stages {
     stage('terraform') {
       steps {
+        sh "cp /var/lib/jenkins/userContent/terraform/main.tf ./"
         sh "terraform init -input=false"
-        sh "terraform apply -target=/var/lib/jenkins/userContent/terraform/main.tf -auto-approve"
+        sh "terraform apply -auto-approve"
         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_access', usernameVariable: 'aws_secret')]) {
           sh "echo 'access_key = \"${aws_access}\"\nsecret_key = \"${aws_secret}\"' > terraform.tfvars"
         }
