@@ -1,7 +1,7 @@
 pipeline {
   agent any
-  tool {
-    terraform
+  tools {
+    terraform = "terraform"
   }
   stages {
     stage('terraform') {
