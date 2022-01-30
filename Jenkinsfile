@@ -4,7 +4,7 @@ pipeline {
     terraform 'terraform'
   }
   stages {
-    stage('terraform') {
+    stage('destroy') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
           sh "echo 'access_key = \"${aws_access}\"\nsecret_key = \"${aws_secret}\"' > terraform.tfvars"
@@ -13,7 +13,7 @@ pipeline {
       }
     }
 
-    stage('terraform') {
+    stage('apply') {
       steps {
         sh "terraform init -input=false"
 //         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
