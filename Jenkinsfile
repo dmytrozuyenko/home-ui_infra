@@ -14,7 +14,7 @@ pipeline {
           sh "echo 'access_key = \"${aws_access}\"\nsecret_key = \"${aws_secret}\"' > terraform.tfvars"
 //         sh "terraform init -input=false"
 //         sh "terraform apply -input=false -auto-approve"
-//         }
+         }
 //         sh ('terraform init') 
         sh "terraform apply --auto-approve"
       }
