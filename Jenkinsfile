@@ -9,17 +9,17 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
           sh "echo 'access_key = \"${aws_access}\"\nsecret_key = \"${aws_secret}\"' > terraform.tfvars"
         }
-        sh "terraform destroy --auto-approve"
+        sh "terraform init -input=false"
+        sh "terraform destroy --auto-approve -no-color"
       }
     }
 
     stage('apply') {
       steps {
-        sh "terraform init -input=false"
 //         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
 //           sh "echo 'access_key = \"${aws_access}\"\nsecret_key = \"${aws_secret}\"' > terraform.tfvars"
 //          }
-        sh "terraform apply --auto-approve"
+//         sh "terraform apply --auto-approve -no-color"
       }
     }
   }
