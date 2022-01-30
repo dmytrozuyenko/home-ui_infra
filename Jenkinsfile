@@ -7,7 +7,7 @@ pipeline {
     stage('terraform') {
       steps {
         sh "terraform --version"
-        sh "terraform init"
+        sh "terraform init -input=false"
 //         sh "/usr/local/bin/terraform --version"
 //         sh "/usr/local/bin/terraform init"
 //         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
