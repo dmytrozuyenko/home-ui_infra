@@ -2,6 +2,7 @@ pipeline {
   agent any
   tools {
     terraform 'terraform'
+    ansible 'ansible'
   }
   stages {
     stage('init') {
@@ -24,12 +25,15 @@ pipeline {
     stage('apply') {
       steps {
         sh "terraform apply --auto-approve -no-color"
-        sh 'echo "[webservers]" > /ansible/hosts'
         sh "terraform output home-ui | tr -d \'\"\' >> /ansible/hosts"
         sh "cat hosts"
       }
     }
     
-    
+    stage('config') {
+      steps {
+        ansiblePlaybook credentialsId: 'aws-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/ansible/hosts', playbook: '/ansible/playbook.yml'
+      }
+    }  
   }
 }
