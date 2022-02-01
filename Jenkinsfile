@@ -27,8 +27,12 @@ pipeline {
 //           sh "echo 'access_key = \"${aws_access}\"\nsecret_key = \"${aws_secret}\"' > terraform.tfvars"
 //          }
         sh "terraform apply --auto-approve -no-color"
-        sh "terraform output"
+        sh 'echo "[home-ui]\n" > hosts'
+        sh "terraform output >> hosts"
+        sh "cat hosts"
       }
     }
+    
+    
   }
 }
