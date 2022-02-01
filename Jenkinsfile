@@ -24,8 +24,8 @@ pipeline {
     stage('apply') {
       steps {
         sh "terraform apply --auto-approve -no-color"
-        sh 'echo "[webservers]\n" > hosts'
-        sh "terraform output home-ui >> hosts"
+        sh 'echo "[webservers]" > hosts'
+        sh "terraform output home-ui | tr -d '"' >> hosts"
         sh "cat hosts"
       }
     }
