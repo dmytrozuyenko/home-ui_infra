@@ -1,3 +1,3 @@
-output "instance_ips" {
+output {
   value = aws_instance.home-ui.public_ip
 }
