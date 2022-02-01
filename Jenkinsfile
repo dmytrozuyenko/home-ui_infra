@@ -23,11 +23,8 @@ pipeline {
   
     stage('apply') {
       steps {
-//         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
-//           sh "echo 'access_key = \"${aws_access}\"\nsecret_key = \"${aws_secret}\"' > terraform.tfvars"
-//          }
         sh "terraform apply --auto-approve -no-color"
-        sh 'echo "[home-ui]\n" > hosts'
+        sh 'echo "[webservers]\n" > hosts'
         sh "terraform output >> hosts"
         sh "cat hosts"
       }
