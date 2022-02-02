@@ -48,7 +48,7 @@ resource "aws_security_group" "home-ui_sg" {
    description      = "HTTP"
    from_port        = 80
    to_port          = 80
-   protocol         = "-1"
+   protocol         = "tcp"
    cidr_blocks      = ["0.0.0.0/0"]
    ipv6_cidr_blocks = ["::/0"]
  }
@@ -57,7 +57,7 @@ resource "aws_security_group" "home-ui_sg" {
    description      = "HTTPS"
    from_port        = 443
    to_port          = 443
-   protocol         = "-1"
+   protocol         = "tcp"
    cidr_blocks      = ["0.0.0.0/0"]
    ipv6_cidr_blocks = ["::/0"]
  }
@@ -75,7 +75,7 @@ resource "aws_security_group" "home-ui_sg" {
    description      = "Desktop"
    from_port        = 22
    to_port          = 22
-   protocol         = "-1"
+   protocol         = "tcp"
    cidr_blocks      = ["46.119.254.233/32"]
    ipv6_cidr_blocks = ["::/0"]
  }
