@@ -10,13 +10,22 @@
         state: latest
         update_cache: yes
 
-    - name: Copy website files
-      copy:
+    - name: ansible copy file from remote to local.
+      fetch:
         src: /var/lib/jenkins/userContent/home-latest/package/dist/
         dest: /var/www/home-ui/
+        flat: yes
         remote_src: yes
         directory_mode: yes
         mode: preserve
+
+#     - name: Copy website files
+#       copy:
+#         src: /var/lib/jenkins/userContent/home-latest/package/dist/
+#         dest: /var/www/home-ui/
+#         remote_src: yes
+#         directory_mode: yes
+#         mode: preserve
 
     - name: Apply Nginx conf
       template:
