@@ -39,14 +39,25 @@ resource "aws_instance" "home-ui" {
  tags = {
    Name = "home-ui"
  }
- provisioner "local-exec" {
-   command = "sudo echo '${var.aws_public_key}' > /home/ubuntu/.ssh/authorized_keys"
- }
+#  provisioner "local-exec" {
+#    command = "sudo echo '${var.aws_public_key}' > /home/ubuntu/.ssh/authorized_keys"
+#  }
 }
 
 # resource "aws_key_pair" "home" {
-#   public_key = var.aws_public_key
+#   public_key = ${var.aws_public_key}
 # }
+
+module "key_pair_external" {
+  source = "../../"
+
+  key_name   = "${random_pet.this.id}-external"
+  public_key = "${var.aws_public_key}"
+
+  tags = {
+    External = "yes"
+  }
+}
 
 resource "aws_security_group" "home-ui_sg" {
  name        = "home-ui_sg"
