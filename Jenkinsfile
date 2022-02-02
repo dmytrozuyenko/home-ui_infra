@@ -24,7 +24,7 @@ pipeline {
     stage('apply') {
       steps {
         sh "terraform apply --auto-approve -no-color"
-        sh "terraform output home-ui | tr -d \'\"\' >> /ansible/hosts"
+        sh "terraform output home-ui | tr -d \'\"\' >> ./ansible/hosts"
         sh "cat hosts"
       }
     }
