@@ -38,11 +38,19 @@ pipeline {
     
     stage('config') {
       steps {
-//         ansiblePlaybook credentialsId: 'aws-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/ansible/hosts', playbook: '/ansible/playbook.yml'
-         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
-           sh "AWS_ACCESS_KEY=${aws_access} AWS_SECRET_KEY=${aws_secret} AWS_EC2_REGION=us-east-2 \\ ansible-playbook playbook.yml -i hosts"
-//            sh "AWS_ACCESS_KEY=${aws_access} AWS_SECRET_KEY=${aws_secret} AWS_EC2_REGION=us-east-2 \\ ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml  -u AUTO_USER"
-         }
+        script {
+          ansiblePlaybook(
+            credentialsId: 'aws-key',
+            disableHostKeyChecking: true,
+            installation: 'ansible',
+            inventory: '/ansible/hosts',
+            playbook: '/ansible/playbook.yml'
+          )
+        }
+//          withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
+//            sh "AWS_ACCESS_KEY=${aws_access} AWS_SECRET_KEY=${aws_secret} AWS_EC2_REGION=us-east-2 \\ ansible-playbook playbook.yml -i hosts"
+// //            sh "AWS_ACCESS_KEY=${aws_access} AWS_SECRET_KEY=${aws_secret} AWS_EC2_REGION=us-east-2 \\ ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml  -u AUTO_USER"
+//          }
       }
     }  
   }
