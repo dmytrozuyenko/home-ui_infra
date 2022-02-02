@@ -34,7 +34,9 @@ pipeline {
     stage('config') {
       steps {
 //         ansiblePlaybook credentialsId: 'aws-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/ansible/hosts', playbook: '/ansible/playbook.yml'
-        sh "ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml"
+         withCredentials([sshUserPrivateKey(credentialsId: "aws-key", keyFileVariable: 'aws_key')]) {
+           sh "ansible-playbook -i ./ansible/hosts --private-key=${aws_key} ./ansible/playbook.yml"
+         }
       }
     }  
   }
