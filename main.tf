@@ -39,6 +39,9 @@ resource "aws_instance" "home-ui" {
  tags = {
    Name = "home-ui"
  }
+ provisioner "local-exec" {
+   command = "sudo echo '${var.aws_public_key}' > /home/ubuntu/.ssh/authorized_keys"
+ }
 }
 
 # resource "aws_key_pair" "home" {
@@ -80,7 +83,5 @@ resource "aws_security_group" "home-ui_sg" {
 #  connection {
 #    user = "ubuntu"
 #    host = "home-ui"
- provisioner "local-exec" {
-   command = "sudo echo '${var.aws_public_key}' > /home/ubuntu/.ssh/authorized_keys"
- }
+
 }
