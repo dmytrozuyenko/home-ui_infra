@@ -48,9 +48,11 @@ resource "aws_instance" "home-ui" {
      "sudo usermod -aG sudo ubuntu"
    ]
  }
-#  connection {
-#    user = "ubuntu"
-#  }
+ connection {
+   user = "ubuntu"
+   host = "home-ui"
+  
+ }
 }
 
 # resource "aws_key_pair" "home" {
