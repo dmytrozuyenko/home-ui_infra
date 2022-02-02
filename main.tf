@@ -47,6 +47,7 @@ resource "aws_instance" "home-ui" {
      "sudo chmod 600 /home/ubuntu/.ssh/authorized_keys",
      "sudo usermod -aG sudo ubuntu"
    ]
+ }
  connection {
    user = "ubuntu"
  }
