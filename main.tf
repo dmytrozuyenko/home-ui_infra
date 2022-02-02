@@ -35,6 +35,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "home-ui" {
  ami             = data.aws_ami.ubuntu.id
  instance_type   = "t2.micro"
+ key_name = "home"
  vpc_security_group_ids = [aws_security_group.home-ui_sg.id]
  tags = {
    Name = "home-ui"
@@ -48,16 +49,16 @@ resource "aws_instance" "home-ui" {
 #   public_key = ${var.aws_public_key}
 # }
 
-module "key_pair_external" {
-  source = "../../"
+# module "key_pair_external" {
+#   source = "../../"
 
-  key_name   = "home"
-  public_key = "${var.aws_public_key}"
+#   key_name   = "home"
+#   public_key = "${var.aws_public_key}"
 
-  tags = {
-    External = "yes"
-  }
-}
+#   tags = {
+#     External = "yes"
+#   }
+# }
 
 resource "aws_security_group" "home-ui_sg" {
  name        = "home-ui_sg"
