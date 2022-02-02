@@ -9,10 +9,6 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
           sh "echo 'access_key = \"${aws_access}\"\nsecret_key = \"${aws_secret}\"' > terraform.tfvars"
         }
-        withCredentials([string(credentialsId: 'aws-public-key', variable: 'aws_public_key')]) {
-          sh "echo 'aws_public_key = \"${aws_public_key}\"' >> terraform.tfvars"
-        }
-        sh "cat terraform.tfvars"
         sh "terraform init -input=false"
       }
     }
@@ -34,6 +30,7 @@ pipeline {
     
     stage('config') {
       steps {
+        sh 'cat /etc/environment'
         script {
           ansiblePlaybook(
             credentialsId: 'aws_key',
@@ -43,6 +40,8 @@ pipeline {
             playbook: './ansible/playbook.yml'
           )
         }
+ 
+        
 //          withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
 //            sh "AWS_ACCESS_KEY=${aws_access} AWS_SECRET_KEY=${aws_secret} AWS_EC2_REGION=us-east-2 \\ ansible-playbook playbook.yml -i hosts"
 // //            sh "AWS_ACCESS_KEY=${aws_access} AWS_SECRET_KEY=${aws_secret} AWS_EC2_REGION=us-east-2 \\ ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml  -u AUTO_USER"
