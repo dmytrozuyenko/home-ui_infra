@@ -12,7 +12,7 @@ pipeline {
         withCredentials([sshUserPrivateKey(credentialsId: "aws-key", keyFileVariable: 'aws_key')]) {
           script {
             def aws_public_key = sh(script: 'ssh-keygen -y -f ${aws_key}', returnStdout: true)
-            sh "echo '\naws_public_key = \"${aws_public_key}\"' >> terraform.tfvars"
+            sh ("echo 'aws_public_key = \"${aws_public_key}\"' >> terraform.tfvars")
           }
         }
         sh "cat terraform.tfvars"
