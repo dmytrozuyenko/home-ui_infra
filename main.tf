@@ -1,5 +1,6 @@
 variable "access_key"{}
-variable "secret_key" {}
+variable "secret_key"{}
+variable "aws_public_key"{}
 
 
 provider "aws" {
@@ -39,6 +40,10 @@ resource "aws_instance" "home-ui" {
  tags = {
    Name = "home-ui"
  }
+}
+
+resource "aws_key_pair" "home" {
+  public_key = var.aws_public_key
 }
 
 resource "aws_security_group" "home-ui_sg" {
