@@ -67,16 +67,7 @@ resource "aws_security_group" "home-ui_sg" {
    from_port        = 22
    to_port          = 22
    protocol         = "tcp"
-   cidr_blocks      = ["34.123.118.107/32"]
-   ipv6_cidr_blocks = ["::/0"]
- }
-
-  ingress {
-   description      = "Desktop"
-   from_port        = 22
-   to_port          = 22
-   protocol         = "tcp"
-   cidr_blocks      = ["46.119.254.233/32"]
+   cidr_blocks      = ["34.123.118.107/32", "46.119.254.233/32"]
    ipv6_cidr_blocks = ["::/0"]
  }
  
