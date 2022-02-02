@@ -38,6 +38,7 @@ resource "aws_instance" "home-ui" {
  tags = {
    Name = "home-ui"
  }
+}
 
 resource "aws_security_group" "home-ui_sg" {
  name        = "home-ui_sg"
