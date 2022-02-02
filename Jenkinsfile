@@ -9,11 +9,13 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
           sh "echo 'access_key = \"${aws_access}\"\nsecret_key = \"${aws_secret}\"' > terraform.tfvars"
         }
-//         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
-//           sh "echo 'access_key = \"${aws_access}\"\nsecret_key = \"${aws_secret}\"' > terraform.tfvars"
-//         }
-//         "aws_public_key" {}
-        
+        withCredentials([sshUserPrivateKey(credentialsId: "aws-key", keyFileVariable: 'aws_key')]) {
+          script {
+            def aws_public_key = "ssh-keygen -y -f ${aws_key}"
+            sh "echo '\naws_public_key = \"${aws_public_key}\"' >> terraform.tfvars"
+          }
+        }
+        sh "cat terraform.tfvars"
         sh "terraform init -input=false"
       }
     }
@@ -30,9 +32,6 @@ pipeline {
       steps {
         sh "terraform apply --auto-approve -no-color"
         sh "terraform output home-ui | tr -d \'\"\' >> ./ansible/hosts"
-//         sh "cat ./ansible/hosts"
-//         sh "echo '[webservers]\n' > /etc/ansible/hosts"
-//         sh "terraform output home-ui | tr -d \'\"\' >> /etc/ansible/hosts"
       }
     }
     
@@ -40,7 +39,7 @@ pipeline {
       steps {
         script {
           ansiblePlaybook(
-            credentialsId: 'aws-key',
+            credentialsId: 'aws_key',
             disableHostKeyChecking: true,
             installation: 'ansible',
             inventory: './ansible/hosts',
