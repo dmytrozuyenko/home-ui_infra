@@ -66,7 +66,7 @@ resource "aws_security_group" "home-ui_sg" {
    description      = "Jenkins"
    from_port        = 22
    to_port          = 22
-   protocol         = "-1"
+   protocol         = "tcp"
    cidr_blocks      = ["34.123.118.107/32"]
    ipv6_cidr_blocks = ["::/0"]
  }
