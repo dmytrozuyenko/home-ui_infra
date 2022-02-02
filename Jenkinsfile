@@ -43,8 +43,8 @@ pipeline {
             credentialsId: 'aws-key',
             disableHostKeyChecking: true,
             installation: 'ansible',
-            inventory: '/ansible/hosts',
-            playbook: '/ansible/playbook.yml'
+            inventory: './ansible/hosts',
+            playbook: './ansible/playbook.yml'
           )
         }
 //          withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
