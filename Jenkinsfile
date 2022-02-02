@@ -3,7 +3,7 @@ pipeline {
   tools {
     terraform 'terraform'
   }
-//   stages {
+  stages {
 //     stage('init') {
 //       steps {
 //         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
