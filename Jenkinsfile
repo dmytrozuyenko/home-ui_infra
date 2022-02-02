@@ -30,16 +30,17 @@ pipeline {
     
     stage('config') {
       steps {
-        sh 'cat /etc/environment'
-        script {
-          ansiblePlaybook(
-            credentialsId: 'aws_key',
-            disableHostKeyChecking: true,
-            installation: 'ansible',
-            inventory: './ansible/hosts',
-            playbook: './ansible/playbook.yml'
-          )
-        }
+        sh "ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml  -u AUTO_USER"
+//         sh 'cat /etc/environment'
+//         script {
+//           ansiblePlaybook(
+//             credentialsId: 'aws_key',
+//             disableHostKeyChecking: true,
+//             installation: 'ansible',
+//             inventory: './ansible/hosts',
+//             playbook: './ansible/playbook.yml'
+//           )
+//         }
  
         
 //          withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
