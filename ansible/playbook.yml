@@ -13,7 +13,7 @@
 #     - name: ansible copy file from remote to local.
 #       fetch:
 #         src: /var/lib/jenkins/userContent/home-latest/package/dist/
-#         dest: /var/www/home-ui/
+#         dest: /var/www/home-ui
 #         flat: yes
 #         remote_src: yes
 #         directory_mode: yes
@@ -21,8 +21,8 @@
 
     - name: Copy website files
       copy:
-        src: /var/lib/jenkins/userContent/home-latest/package/dist
-        dest: /var/www/home-ui/
+        src: /var/lib/jenkins/userContent/home-latest/package/home-ui/
+        dest: /var/www/
         mode: preserve
 
     - name: Apply Nginx conf
