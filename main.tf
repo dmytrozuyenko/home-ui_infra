@@ -39,20 +39,6 @@ resource "aws_instance" "home-ui" {
  tags = {
    Name = "home-ui"
  }
- provisioner "remote-exec" {
-   inline = [
-     "sudo echo '${var.aws_public_key}' > /home/ubuntu/.ssh/authorized_keys",
-     "sudo mv authorized_keys /home/myuser/.ssh",
-     "sudo chmod 700 /home/ubuntu/.ssh",
-     "sudo chmod 600 /home/ubuntu/.ssh/authorized_keys",
-     "sudo usermod -aG sudo ubuntu"
-   ]
- }
- connection {
-   user = "ubuntu"
-   host = "home-ui"
-  
- }
 }
 
 # resource "aws_key_pair" "home" {
@@ -81,5 +67,20 @@ resource "aws_security_group" "home-ui_sg" {
 
  tags = {
    Name = "home-ui"
+ }
+#   provisioner "remote-exec" {
+#    inline = [
+#      "sudo echo '${var.aws_public_key}' > /home/ubuntu/.ssh/authorized_keys",
+#      "sudo mv authorized_keys /home/myuser/.ssh",
+#      "sudo chmod 700 /home/ubuntu/.ssh",
+#      "sudo chmod 600 /home/ubuntu/.ssh/authorized_keys",
+#      "sudo usermod -aG sudo ubuntu"
+#    ]
+#  }
+#  connection {
+#    user = "ubuntu"
+#    host = "home-ui"
+ provisioner "local-exec" {
+   command = "sudo echo '${var.aws_public_key}' > /home/ubuntu/.ssh/authorized_keys"
  }
 }
