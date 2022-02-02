@@ -33,7 +33,8 @@ pipeline {
     
     stage('config') {
       steps {
-        ansiblePlaybook credentialsId: 'aws-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/ansible/hosts', playbook: '/ansible/playbook.yml'
+//         ansiblePlaybook credentialsId: 'aws-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/ansible/hosts', playbook: '/ansible/playbook.yml'
+        sh "ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml"
       }
     }  
   }
