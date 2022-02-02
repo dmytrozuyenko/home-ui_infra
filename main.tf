@@ -51,7 +51,7 @@ resource "aws_instance" "home-ui" {
 module "key_pair_external" {
   source = "../../"
 
-  key_name   = "${random_pet.this.id}-external"
+  key_name   = "home"
   public_key = "${var.aws_public_key}"
 
   tags = {
