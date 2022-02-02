@@ -21,10 +21,8 @@
 
     - name: Copy website files
       copy:
-        src: /var/lib/jenkins/userContent/home-latest/package/dist/
+        src: /var/lib/jenkins/userContent/home-latest/package/dist
         dest: /var/www/home-ui/
-        remote_src: yes
-        directory_mode: yes
         mode: preserve
 
     - name: Apply Nginx conf
