@@ -30,7 +30,10 @@ pipeline {
     
     stage('config') {
       steps {
-        sh "ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml  -u AUTO_USER"
+        withCredentials([sshUserPrivateKey(credentialsId: "aws-key", keyFileVariable: 'aws_key')]) {
+          sh 'ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml -u AUTO_USER --key-file "/var/lib/jenkins/.ssh/home.pem"'
+        }
+        
 //         sh 'cat /etc/environment'
 //         script {
 //           ansiblePlaybook(
