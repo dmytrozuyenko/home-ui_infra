@@ -9,7 +9,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'aws-auth', passwordVariable: 'aws_secret', usernameVariable: 'aws_access')]) {
           sh "echo 'access_key = \"${aws_access}\"\nsecret_key = \"${aws_secret}\"' > terraform.tfvars"
         }
-        withCredentials([sshUserPrivateKey(credentialsId: "aws-public-key", keyFileVariable: 'aws_public_key')]) {
+        withCredentials([string(credentialsId: 'aws-public-key', variable: 'aws_public_key')]) {
           sh "echo 'aws_public_key = \"${aws_public_key}\"' >> terraform.tfvars"
         }
         sh "cat terraform.tfvars"
