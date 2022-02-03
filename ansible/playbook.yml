@@ -43,3 +43,9 @@
         rule: allow
         port: '80'
         proto: tcp
+        
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
