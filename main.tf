@@ -63,7 +63,7 @@ resource "aws_security_group" "home-ui_sg" {
  }
  
  ingress {
-   description      = "Jenkins"
+   description      = "Jenkins and desktop"
    from_port        = 22
    to_port          = 22
    protocol         = "tcp"
