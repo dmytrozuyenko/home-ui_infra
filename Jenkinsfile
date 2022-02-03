@@ -25,7 +25,7 @@ pipeline {
       steps {
         sh "terraform apply --auto-approve -no-color"
         sh "terraform output home-ui | tr -d \'\"\' >> ./ansible/hosts"
-        sh "echo 'ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/home.pem' >> ./ansible/hosts"
+        sh "echo -n 'ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/home.pem' >> ./ansible/hosts"
         sh 'cat ./ansible/hosts'
       }
     }
