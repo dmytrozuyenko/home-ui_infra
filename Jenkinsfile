@@ -30,10 +30,9 @@ pipeline {
     
     stage('config') {
       steps {
-        withCredentials([sshUserPrivateKey(credentialsId: "aws-key-infra", keyFileVariable: 'aws_key')]) {
-          sh 'whoami'
+//         withCredentials([sshUserPrivateKey(credentialsId: "aws-key-infra", keyFileVariable: 'aws_key')]) {
           sh 'ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml -u ubuntu --key-file /var/lib/jenkins/.ssh/home.pem'
-        }
+//         }
       }
     }  
   }
