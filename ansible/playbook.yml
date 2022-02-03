@@ -22,12 +22,12 @@
     - name: Copy website files
       copy:
         src: /var/lib/jenkins/userContent/home-latest/package/home-ui
-        dest: /var/www/home-ui
+        dest: /var/www/
         mode: preserve
 
     - name: Apply Nginx conf
       template:
-        src: ./ansible/home-ui.conf
+        src: /var/lib/jenkins/userContent/home-ui.conf
         dest: /etc/nginx/sites-available/default
       notify: Restart Nginx
 
