@@ -30,7 +30,7 @@ pipeline {
     
     stage('config') {
       steps {
-        sh 'ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml -u ubuntu --key-file "/var/lib/jenkins/.ssh/home.pem"'
+        sh 'ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml -u ubuntu --key-file /var/lib/jenkins/.ssh/home.pem'
       }
     }  
   }
@@ -57,8 +57,8 @@ pipeline {
         """)
       }
     }
-//     always {
-//     deleteDir()
-//     }    
+    always {
+    deleteDir()
+    }    
   }
 }
