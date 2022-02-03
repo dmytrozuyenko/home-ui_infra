@@ -25,7 +25,7 @@ pipeline {
       steps {
         sh "terraform apply --auto-approve -no-color"
         sh "terraform output home-ui | tr -d \'\"\' >> ./ansible/hosts"
-        sh "'ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/home.pem' >> ./ansible/hosts"
+        sh "echo 'ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/home.pem' >> ./ansible/hosts"
         sh 'cat ./ansible/hosts'
       }
     }
@@ -33,7 +33,7 @@ pipeline {
     stage('config') {
       steps {
         withCredentials([sshUserPrivateKey(credentialsId: "aws-key-infra", keyFileVariable: 'aws_key')]) {
-          sh 'ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml -u ubuntu --key-file "./home.pem"'
+          sh 'ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml -u ubuntu'
         }
       }
     }  
