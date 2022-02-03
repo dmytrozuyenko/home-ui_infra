@@ -59,8 +59,8 @@ pipeline {
         """)
       }
     }
-//     always {
-//     deleteDir()
-//     }    
+    always {
+    deleteDir()
+    }    
   }
 }
