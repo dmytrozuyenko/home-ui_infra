@@ -21,20 +21,20 @@ pipeline {
       }  
     }
   
-//     stage('apply') {
-//       steps {
-//         sh "terraform apply --auto-approve -no-color"
-//         sh "terraform output home-ui | tr -d \'\"\' >> ./ansible/hosts"
-//       }
-//     }
+    stage('apply') {
+      steps {
+        sh "terraform apply --auto-approve -no-color"
+        sh "terraform output home-ui | tr -d \'\"\' >> ./ansible/hosts"
+      }
+    }
     
-//     stage('config') {
-//       steps {
-//         withCredentials([sshUserPrivateKey(credentialsId: "aws-key", keyFileVariable: 'aws_key')]) {
-//           sh 'ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml -u ubuntu --key-file /var/lib/jenkins/.ssh/home.pem'
-//         }
-//       }
-//     }  
+    stage('config') {
+      steps {
+        withCredentials([sshUserPrivateKey(credentialsId: "aws-key", keyFileVariable: 'aws_key')]) {
+          sh 'ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml -u ubuntu --key-file /var/lib/jenkins/.ssh/home.pem'
+        }
+      }
+    }  
   }
   
   post {
